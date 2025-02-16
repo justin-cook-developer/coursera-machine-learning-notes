@@ -1,1 +1,3 @@
-# coursera-machine-learning-notes
+# Machine Learning Specialization
+
+- Each folder represents a course from this specialization.
