@@ -6,6 +6,9 @@ print(data[:5])
 print(data.shape)
 ```
 ```
+# UNQ_C1
+# GRADED FUNCTION: compute_cost
+
 def compute_cost(x, y, w, b): 
     """
     Computes the cost function for linear regression.
@@ -37,14 +40,14 @@ def compute_cost(x, y, w, b):
 #         total_cost += cost
     
 #     total_cost = total_cost / (2 * m)
-    # the below code is the fast way.
-    bs = np.full(m, b)
-    ws = np.full(m, w)
-    pred = np.dot(w, x) + bs
+
+# the below code is the fast way, taking advantage of np vectorization
+    pred = w * x + b
     
-    diff = (pred - y)**2
+    error = (pred - y)
+    squared_error = error**2
     
-    total_cost = sum(diff) / (2 * m)
+    total_cost = np.mean(squared_error) * 0.5
     
     ### END CODE HERE ### 
 
@@ -74,14 +77,15 @@ def compute_gradient(x, y, w, b):
     dj_db = 0
     
     ### START CODE HERE ###
-    bs = np.full(m, b)
-    ws = np.full(m, w)
+    # don't need these vectors, b/c scalars are broadcasted to vectors
+#     bs = np.full(m, b)
+#     ws = np.full(m, w)
     
-    pred = ws * x + bs
+    pred = w * x + b
     diff = pred - y
     
-    dj_dw = np.dot(diff, x) / m
-    dj_db = sum(diff) / m
+    dj_dw = np.mean(diff * x)
+    dj_db = np.mean(diff)
     
     ### END CODE HERE ### 
         
